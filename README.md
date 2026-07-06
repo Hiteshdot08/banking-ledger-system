@@ -1,6 +1,8 @@
 # banking-ledger-system
-A secure banking ledger backend built with Node.js, Express.js, and MongoDB. Features include JWT authentication, Google OAuth, email verification, account management, and secure transaction processing.
 
+A secure banking ledger backend built with **Node.js**, **Express.js**, and **MongoDB**. Features include JWT authentication, Google OAuth, email verification, account management, and secure transaction processing.
+
+---
 
 ## Features
 
@@ -38,7 +40,6 @@ A secure banking ledger backend built with Node.js, Express.js, and MongoDB. Fea
 
 - Nodemailer
 - dotenv
-- CORS
 
 ---
 
@@ -53,8 +54,7 @@ banking-ledger-system/
 │   ├── middlewares/
 │   ├── models/
 │   ├── routes/
-│   ├── services/
-│   └── utils/
+│   └── services/
 │
 ├── server.js
 ├── package.json
@@ -93,13 +93,14 @@ PORT=3000
 
 MONGO_URI=your_mongodb_connection_string
 
-JWT_SECRET=your_jwt_secret
+ACCESS_TOKEN_SECRET=your_access_token_secret
+REFRESH_TOKEN_SECRET=your_refresh_token_secret
 
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-EMAIL_USER=your_email
-EMAIL_PASS=your_email_password
+EMAIL_USER=your_email_address
+EMAIL_PASS=your_email_app_password
 ```
 
 ### Start the development server
@@ -119,6 +120,7 @@ npm run dev
 - Google OAuth Login
 - Email Verification
 - Password Reset
+- Refresh Access Token
 - Logout
 
 ### Accounts
@@ -139,13 +141,17 @@ npm run dev
 
 ## Authentication
 
-Protected routes require a valid JWT token.
+This API uses **JWT-based authentication** with **Access Tokens** and **Refresh Tokens**.
+
+Protected routes require a valid access token.
 
 Example:
 
 ```http
-Authorization: Bearer <your_jwt_token>
+Authorization: Bearer <your_access_token>
 ```
+
+Authentication tokens are also securely stored in HTTP-only cookies for enhanced security.
 
 ---
 
@@ -153,13 +159,14 @@ Authorization: Bearer <your_jwt_token>
 
 | Variable | Description |
 |----------|-------------|
-| PORT | Server Port |
-| MONGO_URI | MongoDB Atlas Connection String |
-| JWT_SECRET | Secret Key for JWT |
-| GOOGLE_CLIENT_ID | Google OAuth Client ID |
-| GOOGLE_CLIENT_SECRET | Google OAuth Client Secret |
-| EMAIL_USER | Email Address |
-| EMAIL_PASS | Email App Password |
+| `PORT` | Server port |
+| `MONGO_URI` | MongoDB connection string |
+| `ACCESS_TOKEN_SECRET` | Secret key for access token generation |
+| `REFRESH_TOKEN_SECRET` | Secret key for refresh token generation |
+| `GOOGLE_CLIENT_ID` | Google OAuth Client ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth Client Secret |
+| `EMAIL_USER` | Email address used to send emails |
+| `EMAIL_PASS` | Email app password |
 
 ---
 
@@ -171,8 +178,8 @@ Authorization: Bearer <your_jwt_token>
 - JWT
 - bcrypt
 - cookie-parser
-- Nodemailer
 - Passport.js
+- Nodemailer
 - dotenv
 
 ---
@@ -188,6 +195,7 @@ Authorization: Bearer <your_jwt_token>
 
 ---
 
+## Author
 
 **Hitesh**
 
